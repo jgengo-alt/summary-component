@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+
+  <title>Frontend Mentor | Results summary component</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        fontFamily: {
+
+          'display': ['Oswald'],
+          'body': ['"Hanken Grotesk"'],
+        },
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="font-body md:flex md:justify-center md:items-center bg-gray-100 md:w-screen md:h-screen">
+  <div class="md:w-5/6 lg:w-3/6 md:flex md:bg-white md:rounded-[35px] md:drop-shadow-[0_15px_30px_rgba(17,37,212,0.3)]">
+    <!-- header -->
+    <div
+      class="bg-gradient-to-b from-indigo-600 to-blue-800 rounded-b-[30px] py-10 flex flex-col items-center gap-y-5 text-white md:w-2/5 md:rounded-[35px]">
+      <div class="text-white/60 text-xl">Your Result</div>
+
+      <div
+        class="text-white rounded-full bg-gradient-to-b from-blue-900 via-blue-900 to-transparent w-36 h-36 flex flex-col items-center justify-center">
+        <p class="text-[3.5rem] font-extrabold text-white">76</p>
+        <p class="opacity-60">of 100</p>
+      </div>
+      <p class='text-xl text-white font-bold'>Great</p>
+      <p class="opacity-60 w-3/5 text-center text-lg md:w-4/5">You scored higher than 65% of the people who have taken
+        these tests.</p>
+
+    </div>
+
+    <!-- card bottom -->
+
+
+    <div class="pt-10 md:w-3/5">
+      <h2 class="font-bold text-xl w-4/5 m-auto">Summary</h2>
+      <div class="flex gap-y-5  flex-col items-center mt-5">
+        <div class="w-4/5 bg-red-100 rounded-lg h-10 px-6 py-7 flex items-center justify-between">
+          <span class="text-red-500 font-bold flex gap-2"><img src="" id="reaction_svg" alt="icon_reaction"> Reaction</span>
+          <p class="font-extrabold text-neutral-400"><span class="text-neutral-900" id="reaction"></span> / 100</p>
+        </div>
+
+        <div class="w-4/5 bg-yellow-100/50 rounded-lg h-10  px-6 py-7  flex items-center justify-between">
+          <span class="text-yellow-500 font-bold flex gap-2"><img src='' id="memory_svg" alt="icon_memory">Memory</span>
+          <p class="font-extrabold text-neutral-400"><span class="text-neutral-900" id="memory"></span> / 100</p>
+        </div>
+
+        <div class="w-4/5 bg-green-100 rounded-lg h-10  px-6 py-7  flex items-center justify-between">
+          <span class="text-green-600 font-bold flex gap-2"><img src='' id="verbal_svg" alt="icon_verbal">Verbal</span>
+          <p class="font-extrabold text-neutral-400"><span class="text-neutral-800" id="verbal"></span> / 100</p>
+        </div>
+
+        <div class="w-4/5 bg-blue-100 rounded-lg h-10  px-6 py-7  flex items-center justify-between">
+          <span class="text-blue-800 font-bold flex gap-2"><img src='' id="visual_svg" alt="icon_visual">Visual</span>
+          <p class="font-extrabold text-neutral-400"><span class="text-neutral-900" id="visual"></span> / 100</p>
+        </div>
+      </div>
+
+      <div class="w-4/5 m-auto py-5">
+        <button
+          class="text-xl text-white bg-slate-800 w-full rounded-full py-4 hover:bg-slate-800/90 hover:bg-gradient-to-b hover:from-indigo-600 hover:to-blue-800 ease-in-out duration-300">Continue</button>
+      </div>
+
+    </div>
+
+  </div>
+
+
+</body>
+
+<script>
+  fetch('./data.json').then( res => res.json() ).then( (data) => {
+    console.log(data)
+    for (entry of data) {
+      const name = entry.category.toLowerCase()
+      let elem = document.getElementById(name)
+      elem.innerHTML = entry.score
+
+      elem = document.getElementById(`${name}_svg`)
+      console.log(elem)
+      elem.src = entry.icon
+    }
+  })
+</script>
+
+</html>
